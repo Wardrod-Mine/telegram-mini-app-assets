@@ -1,33 +1,38 @@
-const tg = window.Telegram.WebApp;
-tg.ready();
+document.getElementById("submit-btn").addEventListener("click", async () => {
+  const name = tg.initDataUnsafe.user?.first_name || "Гость";
+  const activity = document.getElementById("activity").innerText;
+  const date = document.getElementById("date").value.trim();
 
-const activities = [
-  { id: 1, name: "Прогулки на катере", image: "https://..." },
-  { id: 2, name: "Прогулки на яхте", image: "https://..." },
-  // ...
-];
+  if (!date) {
+    alert("Пожалуйста, укажите удобное время/дату.");
+    return;
+  }
 
-const id = new URLSearchParams(window.location.search).get("id");
-const act = activities.find(a => a.id == id);
-const container = document.getElementById("product");
+  const data = { name, activity, date };
 
-if (!act) {
-  container.innerHTML = `<p>Активность не найдена</p>`;
-} else {
-  container.innerHTML = `
-    <img src="${act.image}" class="w-full h-48 object-cover rounded mb-3" />
-    <h1 class="text-2xl font-bold mb-2">${act.name}</h1>
-    <textarea id="when" placeholder="Удобное время / дата" class="w-full p-2 border rounded mb-3"></textarea>
-    <button id="apply" class="w-full bg-blue-600 text-white py-2 rounded">Оформить заявку</button>
-  `;
+  try {
+    const res = await fetch("https://your-server.com/send-data", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
 
-  document.getElementById("apply").addEventListener("click", () => {
-    const when = document.getElementById("when").value;
-    const data = {
-      name: tg.initDataUnsafe?.user?.first_name || "Гость",
-      activity: act.name,
-      when
-    };
-    tg.sendData(JSON.stringify(data));
-  });
-}
+    if (!res.ok) throw new Error("Ошибка отправки");
+
+    // Успешная отправка
+    const submitBtn = document.getElementById("submit-btn");
+    submitBtn.innerText = "Заявка отправлена ✅";
+    submitBtn.disabled = true;
+
+    setTimeout(() => {
+      submitBtn.innerText = "Отправить заявку";
+      submitBtn.disabled = false;
+      document.getElementById("date").value = "";
+    }, 2500);
+  } catch (err) {
+    alert("Ошибка при отправке заявки. Попробуйте позже.");
+    console.error(err);
+  }
+});

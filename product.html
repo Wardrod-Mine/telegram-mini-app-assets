@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF‑8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Заявка</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оставить заявку</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
-<body class="bg-blue-50 p-4">
-  <div id="product" class="max-w-md mx-auto"></div>
+<body class="bg-blue-50 font-sans p-4">
+
+  <div class="max-w-md mx-auto bg-white shadow-md rounded p-4">
+    <h2 id="activity" class="text-xl font-bold mb-3">Прогулка на катере</h2>
+    <input
+      type="text"
+      id="date"
+      placeholder="Удобное время/дата"
+      class="w-full p-2 border border-gray-300 rounded mb-4"
+    />
+    <button
+      id="submit-btn"
+      class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition"
+    >
+      Отправить заявку
+    </button>
+  </div>
+
   <script src="product.js"></script>
 </body>
 </html>

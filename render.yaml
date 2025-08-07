@@ -1,0 +1,13 @@
+
+services:
+  - type: web
+    name: telegram-webapp-server
+    env: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "node server.js"
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        value: 7304865246:AAHQqkXEBmdHpVIOcr_XPXM24NoOWMLzYww
+      - key: ADMIN_CHAT_ID
+        value: YOUR_ADMIN_CHAT_ID
