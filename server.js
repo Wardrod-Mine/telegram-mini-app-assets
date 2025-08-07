@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 // Замените на ваши реальные значения
 const TELEGRAM_BOT_TOKEN = '7304865246:AAHQqkXEBmdHpVIOcr_XPXM24NoOWMLzYww';
-const ADMIN_CHAT_ID = '@Arch_Angel_of_Chaos';
+const ADMIN_CHAT_ID = '1594687270';
 
 app.use(cors());
 app.use(bodyParser.json());
