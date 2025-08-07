@@ -1,0 +1,4 @@
+/* tailwind directives – мы сгенерируем их позже */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
