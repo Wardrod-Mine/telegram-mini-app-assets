@@ -39,8 +39,13 @@ if (!act) {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          activity,
+          when,
+          name,
+        }),
       });
+      
 
       if (!res.ok) throw new Error("Ошибка отправки");
 
