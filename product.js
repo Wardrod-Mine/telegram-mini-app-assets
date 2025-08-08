@@ -1,11 +1,61 @@
-
 const tg = window.Telegram.WebApp;
 tg.ready();
 
 const activities = [
-  { id: 1, name: "Прогулки на катере", image: "https://..." },
-  { id: 2, name: "Прогулки на яхте", image: "https://..." },
-  // ...
+  {
+    id: 1,
+    name: "Прогулка на катере",
+    image: "https://example.com/images/boat.jpg",
+    description: "Лёгкий ветер, водная гладь и приятная музыка — всё, что нужно для релакса."
+  },
+  {
+    id: 2,
+    name: "Прогулка на яхте",
+    image: "https://example.com/images/yacht.jpg",
+    description: "Комфорт, стиль и море — романтика в каждой волне."
+  },
+  {
+    id: 3,
+    name: "Прогулка на паруснике",
+    image: "https://example.com/images/sail.jpg",
+    description: "Настоящее морское приключение под парусом, словно в кино."
+  },
+  {
+    id: 4,
+    name: "Катание на гидроцикле",
+    image: "https://example.com/images/jetski.jpg",
+    description: "Скорость, брызги и драйв — идеальный адреналин для двоих!"
+  },
+  {
+    id: 5,
+    name: "Катание на водных лыжах",
+    image: "https://example.com/images/waterski.jpg",
+    description: "Почувствуй себя чемпионом — вода и свобода под ногами!"
+  },
+  {
+    id: 6,
+    name: "Катание на вейкборде",
+    image: "https://example.com/images/wakeboard.jpg",
+    description: "Сальто, прыжки и стиль — водный спорт для настоящих."
+  },
+  {
+    id: 7,
+    name: "Катание на ватрушке",
+    image: "https://example.com/images/tubing.jpg",
+    description: "Бешеное веселье на воде — круги, визги и скорость!"
+  },
+  {
+    id: 8,
+    name: "Катание на подружке",
+    image: "https://example.com/images/banana.jpg",
+    description: "Катание вдвоем на надувной подруге — лучше, чем вы думаете!"
+  },
+  {
+    id: 9,
+    name: "Морские приключения",
+    image: "https://example.com/images/adventure.jpg",
+    description: "Исследуй море, найди тайны, создай воспоминания."
+  }
 ];
 
 const id = new URLSearchParams(window.location.search).get("id");
@@ -32,21 +82,25 @@ if (!act) {
       return;
     }
 
+    const data = { name, activity, date };
+
     try {
-      const res = await fetch("https://telegram-webapp-server.onrender.com/submit", {
+      const res = await fetch("https://telegram-webapp-server.onrender.com/send-data", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
           activity,
-          when: date,
+          when,
           name,
         }),
       });
+      
 
       if (!res.ok) throw new Error("Ошибка отправки");
 
+      // Успешная отправка
       tg.showAlert("✅ Заявка успешно отправлена!");
 
       const btn = document.getElementById("submit-btn");
