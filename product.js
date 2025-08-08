@@ -1,18 +1,15 @@
-const tg = window.Telegram.WebApp;
-tg.ready();
-
 const activities = [
   {
     id: 1,
     name: "Прогулка на катере",
     image: "https://example.com/images/boat.jpg",
-    description: "Лёгкий ветер, водная гладь и приятная музыка — всё, что нужно для релакса."
+    description: "1 часовая прогулка по живописной реке. Включает напиток и музыку."
   },
   {
     id: 2,
     name: "Прогулка на яхте",
     image: "https://example.com/images/yacht.jpg",
-    description: "Комфорт, стиль и море — романтика в каждой волне."
+    description: "2 часа на яхте с капитаном, закуски и фото на закате включены."
   },
   {
     id: 3,
@@ -58,64 +55,62 @@ const activities = [
   }
 ];
 
-const id = new URLSearchParams(window.location.search).get("id");
-const act = activities.find(a => a.id == id);
 const container = document.getElementById("product");
+const params = new URLSearchParams(window.location.search);
+const id = parseInt(params.get("id"));
+const activity = activities.find(a => a.id === id);
 
-if (!act) {
-  container.innerHTML = `<p>Активность не найдена</p>`;
+if (!activity) {
+  container.innerHTML = "<p class='text-center text-red-500'>Активность не найдена</p>";
 } else {
   container.innerHTML = `
-    <img src="${act.image}" class="w-full h-48 object-cover rounded mb-3" />
-    <h1 id="activity" class="text-2xl font-bold mb-2">${act.name}</h1>
-    <textarea id="when" placeholder="Удобное время / дата" class="w-full p-2 border rounded mb-3"></textarea>
-    <button id="submit-btn" class="w-full bg-blue-600 text-white py-2 rounded">Оформить заявку</button>
+    <img src="${activity.image}" class="w-full h-52 object-cover rounded" />
+    <h1 class="text-xl font-bold mt-4">${activity.name}</h1>
+    <p class="text-gray-600">${activity.description}</p>
+    <label class="block mt-4 text-sm font-semibold">Удобное время</label>
+    <input id="when" type="text" placeholder="Например: завтра в 15:00" class="w-full p-2 border rounded mt-1" />
+    <label class="block mt-4 text-sm font-semibold">Ваше имя</label>
+    <input id="name" type="text" placeholder="Иван" class="w-full p-2 border rounded mt-1" />
+    <label class="block mt-4 text-sm font-semibold">Телефон</label>
+    <input id="phone" type="tel" placeholder="+7 (___) ___-__-__" class="w-full p-2 border rounded mt-1" />
+    <label class="block mt-4 text-sm font-semibold">Количество человек</label>
+    <select id="people" class="w-full p-2 border rounded mt-1">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4+">4+</option>
+    </select>
+    <button id="submit-btn" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">Отправить заявку</button>
   `;
 
   document.getElementById("submit-btn").addEventListener("click", async () => {
-    const name = tg.initDataUnsafe.user?.first_name || "Гость";
-    const activity = document.getElementById("activity").innerText;
-    const date = document.getElementById("when").value.trim();
+    const when = document.getElementById("when").value.trim();
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const people = document.getElementById("people").value;
 
-    if (!date) {
-      tg.showAlert("Пожалуйста, укажите удобное время/дату.");
+    if (!when || !name || !phone) {
+      Telegram.WebApp.showAlert("Пожалуйста, заполните все поля.");
       return;
     }
 
-    const data = { name, activity, date };
-
     try {
-      const res = await fetch("https://telegram-webapp-server.onrender.com/send-data", {
+      const res = await fetch("https://telegram-webapp-server.onrender.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          activity,
+          activity: activity.name,
           when,
           name,
-        }),
+          phone,
+          people
+        })
       });
-      
 
-      if (!res.ok) throw new Error("Ошибка отправки");
-
-      // Успешная отправка
-      tg.showAlert("✅ Заявка успешно отправлена!");
-
-      const btn = document.getElementById("submit-btn");
-      btn.innerText = "Отправлено ✅";
-      btn.disabled = true;
-
-      setTimeout(() => {
-        btn.innerText = "Оформить заявку";
-        btn.disabled = false;
-        document.getElementById("when").value = "";
-      }, 3000);
-
+      const result = await res.text();
+      Telegram.WebApp.showAlert("Заявка успешно отправлена! Мы скоро свяжемся с вами.");
     } catch (err) {
-      tg.showAlert("❌ Не удалось отправить заявку. Попробуйте позже.");
-      console.error(err);
+      Telegram.WebApp.showAlert("Ошибка при отправке. Попробуйте позже.");
     }
   });
 }
