@@ -1,3 +1,4 @@
+
 const tg = window.Telegram.WebApp;
 tg.ready();
 
@@ -31,8 +32,6 @@ if (!act) {
       return;
     }
 
-    const data = { name, activity, date };
-
     try {
       const res = await fetch("https://telegram-webapp-server.onrender.com/submit", {
         method: "POST",
@@ -41,15 +40,13 @@ if (!act) {
         },
         body: JSON.stringify({
           activity,
-          when,
+          when: date,
           name,
         }),
       });
-      
 
       if (!res.ok) throw new Error("Ошибка отправки");
 
-      // Успешная отправка
       tg.showAlert("✅ Заявка успешно отправлена!");
 
       const btn = document.getElementById("submit-btn");
