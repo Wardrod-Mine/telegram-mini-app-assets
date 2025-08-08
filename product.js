@@ -2,55 +2,55 @@ const activities = [
   {
     id: 1,
     name: "Прогулка на катере",
-    image: "https://example.com/images/boat.jpg",
+    image: "https://telegram-mini-app-assets/images/boat.jpg",
     description: "1 часовая прогулка по живописной реке. Включает напиток и музыку."
   },
   {
     id: 2,
     name: "Прогулка на яхте",
-    image: "https://example.com/images/yacht.jpg",
+    image: "https://telegram-mini-app-assets/images/yacht.jpg",
     description: "2 часа на яхте с капитаном, закуски и фото на закате включены."
   },
   {
     id: 3,
     name: "Прогулка на паруснике",
-    image: "https://example.com/images/sail.jpg",
+    image: "https://telegram-mini-app-assets/images/sail.jpg",
     description: "Настоящее морское приключение под парусом, словно в кино."
   },
   {
     id: 4,
     name: "Катание на гидроцикле",
-    image: "https://example.com/images/jetski.jpg",
+    image: "https://telegram-mini-app-assets/images/jetski.jpg",
     description: "Скорость, брызги и драйв — идеальный адреналин для двоих!"
   },
   {
     id: 5,
     name: "Катание на водных лыжах",
-    image: "https://example.com/images/waterski.jpg",
+    image: "https://telegram-mini-app-assets/images/waterski.jpg",
     description: "Почувствуй себя чемпионом — вода и свобода под ногами!"
   },
   {
     id: 6,
     name: "Катание на вейкборде",
-    image: "https://example.com/images/wakeboard.jpg",
+    image: "https://telegram-mini-app-assets/images/wakeboard.jpg",
     description: "Сальто, прыжки и стиль — водный спорт для настоящих."
   },
   {
     id: 7,
     name: "Катание на ватрушке",
-    image: "https://example.com/images/tubing.jpg",
+    image: "https://telegram-mini-app-assets/images/tubing.jpg",
     description: "Бешеное веселье на воде — круги, визги и скорость!"
   },
   {
     id: 8,
     name: "Катание на подружке",
-    image: "https://example.com/images/banana.jpg",
+    image: "https://telegram-mini-app-assets/images/banana.jpg",
     description: "Катание вдвоем на надувной подруге — лучше, чем вы думаете!"
   },
   {
     id: 9,
     name: "Морские приключения",
-    image: "https://example.com/images/adventure.jpg",
+    image: "https://telegram-mini-app-assets/images/adventure.jpg",
     description: "Исследуй море, найди тайны, создай воспоминания."
   }
 ];
