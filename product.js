@@ -34,7 +34,7 @@ if (!act) {
     const data = { name, activity, date };
 
     try {
-      const res = await fetch("https://telegram-webapp-server.onrender.com/send-data", {
+      const res = await fetch("https://telegram-webapp-server.onrender.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
