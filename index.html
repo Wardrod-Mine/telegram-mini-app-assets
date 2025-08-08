@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF‑8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Прогулки и катания</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
-<body class="bg-blue-50 font-sans p-4">
-  <div class="max-w-md mx-auto">
-    <h1 class="text-2xl font-bold mb-2" id="greeting">Привет!</h1>
-    <p class="mb-4 text-gray-700">Выберите вид отдыха на воде и оставьте заявку.</p>
-    <div id="product-list" class="grid gap-4"></div>
-  </div>
-  <script src="app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Активности на воде</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-blue-50 font-sans p-4">
+    <h1 class="text-2xl font-bold mb-4 text-center">Выберите активность</h1>
+    <div id="catalog" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+    <script>
+      const activities = [
+        { id: 1, name: "Прогулка на катере", image: "https://example.com/images/boat.jpg", description: "Лёгкий ветер, водная гладь и приятная музыка — всё, что нужно для релакса." },
+        { id: 2, name: "Прогулка на яхте", image: "https://example.com/images/yacht.jpg", description: "Комфорт, стиль и море — романтика в каждой волне." },
+        { id: 3, name: "Прогулка на паруснике", image: "https://example.com/images/sail.jpg", description: "Настоящее морское приключение под парусом, словно в кино." },
+        { id: 4, name: "Катание на гидроцикле", image: "https://example.com/images/jetski.jpg", description: "Скорость, брызги и драйв — идеальный адреналин для двоих!" },
+        { id: 5, name: "Катание на водных лыжах", image: "https://example.com/images/waterski.jpg", description: "Почувствуй себя чемпионом — вода и свобода под ногами!" },
+        { id: 6, name: "Катание на вейкборде", image: "https://example.com/images/wakeboard.jpg", description: "Сальто, прыжки и стиль — водный спорт для настоящих." },
+        { id: 7, name: "Катание на ватрушке", image: "https://example.com/images/tubing.jpg", description: "Бешеное веселье на воде — круги, визги и скорость!" },
+        { id: 8, name: "Катание на подружке", image: "https://example.com/images/banana.jpg", description: "Катание вдвоем на надувной подруге — лучше, чем вы думаете!" },
+        { id: 9, name: "Морские приключения", image: "https://example.com/images/adventure.jpg", description: "Исследуй море, найди тайны, создай воспоминания." }
+      ];
+
+      const container = document.getElementById("catalog");
+      activities.forEach(act => {
+        const div = document.createElement("div");
+        div.className = "bg-white rounded shadow-md hover:shadow-lg transition duration-200 cursor-pointer overflow-hidden";
+        div.innerHTML = `
+          <img src="${act.image}" class="w-full h-40 object-cover" />
+          <div class="p-3">
+            <h2 class="text-lg font-semibold mb-1">${act.name}</h2>
+            <p class="text-sm text-gray-600">${act.description.substring(0, 90)}...</p>
+          </div>
+        `;
+        div.onclick = () => {
+          window.location.href = "product.html?id=" + act.id;
+        };
+        container.appendChild(div);
+      });
+    </script>
+  </body>
 </html>
