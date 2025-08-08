@@ -69,7 +69,7 @@ if (!activity) {
     <p class="text-gray-600">${activity.description}</p>
     <label class="block mt-4 text-sm font-semibold">Удобное время</label>
     <input id="when" type="text" placeholder="Например: завтра в 15:00" class="w-full p-2 border rounded mt-1" />
-    <label class="block mt-4 text-sm font-semibold">Ваше имя</label>
+    <label class="block mt-4 text-sm font-semibold">Ваше ФИО</label>
     <input id="name" type="text" placeholder="Иван" class="w-full p-2 border rounded mt-1" />
     <label class="block mt-4 text-sm font-semibold">Телефон</label>
     <input id="phone" type="tel" placeholder="+7 (___) ___-__-__" class="w-full p-2 border rounded mt-1" />
